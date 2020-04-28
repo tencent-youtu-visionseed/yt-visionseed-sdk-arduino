@@ -43,21 +43,25 @@ void loop()
             YtVisionSeedResultTypePoints points = {.count =0, .p = 0};
             YtVisionSeedResultTypeArray pose = {.count =0, .p = 0};
 
+            // 获取检测框
             vs_path[1] = i;
             if (!YtDataLink::getResult(message, &rect, vs_path, 2))
             {
                 continue;
             }
+            // 获取90点关键点
             vs_path[2] = VS_MODEL_FACE_LANDMARK;
             if (!YtDataLink::getResult(message, &points, vs_path, 3))
             {
                 continue;
             }
+            // 获取人脸姿态
             vs_path[2] = VS_MODEL_FACE_POSE;
             if (!YtDataLink::getResult(message, &pose, vs_path, 3))
             {
                 continue;
             }
+            // 获取人脸识别结果
             vs_path[2] = VS_MODEL_FACE_RECOGNITION;
             YtDataLink::getResult(message, &faceName, vs_path, 3);
 
